@@ -20,7 +20,6 @@ import Hr from "react-native-hr-component";
 import Styles from "./styles.js";
 
 
-
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -122,13 +121,14 @@ class Login extends Component {
     };
 
     repeatPasswordOnTextChange = (text) => {
-      this.props.updateRepeatPasswordText(text);
+        this.props.updateRepeatPasswordText(text);
     };
 
 
-
-
     render() {
+        //TODO: Animated.view for sing up:
+        // 1)TextInput
+        // 2)Buttons.
         return (
             <View style={Styles.component}>
                 <Animated.View style={[Styles.component, {paddingBottom: this.keyboardHeight}]}>
@@ -157,21 +157,23 @@ class Login extends Component {
                                autocorrect={false}
                                selectionColor={"white"}
                                color={"white"}/>
-                    {this.props.isSingUpButtonPressed ? <TextInput style={Styles.textInput}
-                                                                   value={this.props.newRepeatPasswordText}
-                                                                   onChangeText={value => this.repeatPasswordOnTextChange(value)}
-                                                                   placeholder="Repeat password"
-                                                                   secureTextEntry={true}
-                                                                   textContentType={"password"}
-                                                                   placeholderTextColor="#80a699"
-                                                                   autocorrect={false}
-                                                                   selectionColor={"white"}
-                                                                   color={"white"}/> : null}
-                    {this.props.isPasswordForget ? <Button onPress={this.forgotPassword} title={"Forgot your password?"}/> : null}
+
+                    {this.props.isSingUpButtonPressed ?
+                        <TextInput style={Styles.textInput}
+                                   value={this.props.newRepeatPasswordText}
+                                   onChangeText={value => this.repeatPasswordOnTextChange(value)}
+                                   placeholder="Repeat password"
+                                   secureTextEntry={true}
+                                   textContentType={"password"}
+                                   placeholderTextColor="#80a699"
+                                   autocorrect={false}
+                                   selectionColor={"white"}
+                                   color={"white"}/> : null}
+                    {this.props.isPasswordForget ?
+                        <Button onPress={this.forgotPassword} title={"Forgot your password?"}/> : null}
                     <ButtonGalio onPress={this.loginButtonOnPress} style={Styles.buttonSingIn}>
                         <Text style={Styles.currentButtonText} color={"05634b"}>Login</Text>
                     </ButtonGalio>
-                    {this.props.isSingUpButtonPressed ? <Text>Is pressed</Text> : <Text>Is'n pressed</Text>}
                     <ButtonGalio onPress={this.singUpButtonOnPress} style={Styles.buttonSingUp}>
                         <Text style={Styles.buttonText}>Sing up</Text>
                     </ButtonGalio>

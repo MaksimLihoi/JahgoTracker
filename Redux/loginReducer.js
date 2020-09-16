@@ -76,6 +76,7 @@ const loginReducer = (state = initializeState, action) => {
                     isSingUpButtonPressed: true,
                     isPasswordForget: false,
                     isLoginButtonPressed: false,
+                    isAuth: false,
                 };
             }
                 ;
