@@ -28,6 +28,9 @@ class Login extends Component {
         this.imageHeight = new Animated.Value(120);
         this.imageWidth = new Animated.Value(120);
         this.imageMarginBottom = new Animated.Value(15);
+        this.repeatPasswordFieldHeight = new Animated.Value(0);
+        this.repeatPasswordFieldBorderWidth = new Animated.Value(0);
+
     }
 
     componentDidMount() {
@@ -91,10 +94,29 @@ class Login extends Component {
     };
 
     singUpButtonOnPress = () => {
+        if (!this.props.isSingUpButtonPressed) {
+            Animated.parallel([
+                Animated.timing(this.repeatPasswordFieldHeight, {
+                    duration: 500,
+                    toValue: 45,
+                    useNativeDriver: false,
+                }),
+
+            ]).start();
+        }
         this.props.singUpButton();
     };
 
     loginButtonOnPress = () => {
+        if (this.props.isSingUpButtonPressed) {
+            Animated.parallel([
+                Animated.timing(this.repeatPasswordFieldHeight, {
+                    duration: 500,
+                    toValue: 0,
+                    useNativeDriver: false,
+                }),
+            ]).start();
+        }
         this.props.loginButton();
     };
 
@@ -127,8 +149,7 @@ class Login extends Component {
 
     render() {
         //TODO: Animated.view for sing up:
-        // 1)TextInput
-        // 2)Buttons.
+        // 1)Buttons.
         return (
             <View style={Styles.component}>
                 <Animated.View style={[Styles.component, {paddingBottom: this.keyboardHeight}]}>
@@ -158,9 +179,14 @@ class Login extends Component {
                                selectionColor={"white"}
                                color={"white"}/>
 
-                    {this.props.isSingUpButtonPressed ?
-                        <TextInput style={Styles.textInput}
-                                   value={this.props.newRepeatPasswordText}
+                    <Animated.View style={[
+                        Styles.textInput,
+                        {
+                            height: this.repeatPasswordFieldHeight,
+                            borderWidth: this.repeatPasswordFieldBorderWidth,
+                        }
+                    ]}>
+                        {this.props.isSingUpButtonPressed ? <TextInput value={this.props.newRepeatPasswordText}
                                    onChangeText={value => this.repeatPasswordOnTextChange(value)}
                                    placeholder="Repeat password"
                                    secureTextEntry={true}
@@ -169,6 +195,7 @@ class Login extends Component {
                                    autocorrect={false}
                                    selectionColor={"white"}
                                    color={"white"}/> : null}
+                    </Animated.View>
                     {this.props.isPasswordForget ?
                         <Button onPress={this.forgotPassword} title={"Forgot your password?"}/> : null}
                     <ButtonGalio onPress={this.loginButtonOnPress} style={Styles.buttonSingIn}>
