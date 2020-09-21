@@ -1,48 +1,60 @@
 import {StyleSheet} from "react-native";
 
+//TODO: Change colors to another one.
 const Styles = StyleSheet.create({
         component: {
             alignItems: "center",
             alignContent: "center",
             flex: 1,
             justifyContent: "center",
+            flexDirection: "column",
+            marginBottom: 75,
         },
-        currentButtonText: {
-            color: "#1e5b45",
+        activeButtonText: {
+            color: "#0b6846",
             fontWeight: "bold",
+            fontSize: 16,
         },
-        buttonText: {
+        inactiveButtonText: {
             color: "white",
             fontWeight: "bold",
+            fontSize: 16,
         },
-    //TODO: IPhone suggest strong password for sing up, so it doesn't look naturally.
+        //TODO: IPhone suggest strong password for sing up, so it doesn't look naturally.
         textInput: {
             height: 45,
-            borderColor: '#06543e',
+            borderColor: 'rgba(4, 73, 52, 0.6)',
             borderWidth: 1,
-            borderRadius: 25,
+            borderRadius: 7,
             marginBottom: 10,
-            backgroundColor: "#06543e",
+            backgroundColor: "rgba(4, 73, 52, 0.6)",
             justifyContent: "center",
             paddingLeft: 15,
             paddingRight: 15,
             width: 300,
         },
-        buttonSingUp: {
-            backgroundColor: "#1e5b45",
+        inactiveButton: {
             width: 300,
-            color: "#1e5b45",
+            color: "#0b6846",
             shadowColor: "#06543e",
+            backgroundColor: null,
+            borderColor: "white",
+            borderWidth: 1,
+            borderRadius: 7,
         },
-        buttonSingIn: {
+        activeButton: {
             backgroundColor: "white",
             width: 300,
             shadowColor: "#06543e",
+            borderColor: "white",
+            borderWidth: 1,
+            borderRadius: 7,
         },
         logoJahgo: {
             width: 120,
             height: 120,
             marginBottom: 15,
+
         },
         textStylesHr: {
             color: "white",
@@ -67,6 +79,12 @@ const Styles = StyleSheet.create({
         forgotPasswordButton: {
             height: 0,
             width: 0,
+        },
+        jahgoTrackerText: {
+            marginBottom: 50,
+            color: "#0b6846",
+            fontSize: 30,
+            fontWeight: "bold",
         },
     }
 );

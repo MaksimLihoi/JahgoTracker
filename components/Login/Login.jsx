@@ -30,6 +30,7 @@ class Login extends Component {
         this.imageMarginBottom = new Animated.Value(15);
         this.repeatPasswordFieldHeight = new Animated.Value(0);
         this.repeatPasswordFieldBorderWidth = new Animated.Value(0);
+        this.compText = new Animated.Value(30);
 
     }
 
@@ -65,6 +66,11 @@ class Login extends Component {
                 toValue: 10,
                 useNativeDriver: false,
             }),
+            Animated.timing(this.compText, {
+                duration: event.duration,
+                toValue: 1,
+                useNativeDriver: false,
+            }),
         ]).start();
     };
 
@@ -90,6 +96,11 @@ class Login extends Component {
                 toValue: 15,
                 useNativeDriver: false,
             }),
+            Animated.timing(this.compText, {
+                duration: event.duration,
+                toValue: 30,
+                useNativeDriver: false,
+            }),
         ]).start();
     };
 
@@ -101,8 +112,9 @@ class Login extends Component {
                     toValue: 45,
                     useNativeDriver: false,
                 }),
-
             ]).start();
+        } else {
+            Alert.alert("Sing up button pressed");
         }
         this.props.singUpButton();
     };
@@ -148,12 +160,13 @@ class Login extends Component {
 
 
     render() {
-        //TODO: Animated.view for sing up:
-        // 1)Buttons.
         return (
-            <View style={Styles.component}>
                 <Animated.View style={[Styles.component, {paddingBottom: this.keyboardHeight}]}>
-                    {this.props.isAuth ? <Text>IsAuth: true</Text> : <Text>IsAuth: false</Text>}
+                    <Animated.Text style={[Styles.jahgoTrackerText,
+                        {
+                            fontSize: this.compText,
+                        }
+                    ]}>Jahgo Tracker</Animated.Text>
                     <Animated.Image source={logo} style={[Styles.logoJahgo,
                         {
                             height: this.imageHeight,
@@ -186,24 +199,38 @@ class Login extends Component {
                             borderWidth: this.repeatPasswordFieldBorderWidth,
                         }
                     ]}>
-                        {this.props.isSingUpButtonPressed ? <TextInput value={this.props.newRepeatPasswordText}
-                                   onChangeText={value => this.repeatPasswordOnTextChange(value)}
-                                   placeholder="Repeat password"
-                                   secureTextEntry={true}
-                                   textContentType={"password"}
-                                   placeholderTextColor="#80a699"
-                                   autocorrect={false}
-                                   selectionColor={"white"}
-                                   color={"white"}/> : null}
+                        {this.props.isSingUpButtonPressed ?
+                            <TextInput value={this.props.newRepeatPasswordText}
+                                       onChangeText={value => this.repeatPasswordOnTextChange(value)}
+                                       placeholder="Repeat password"
+                                       secureTextEntry={true}
+                                       textContentType={"password"}
+                                       placeholderTextColor="#80a699"
+                                       autocorrect={false}
+                                       selectionColor={"white"}
+                                       color={"white"}/> : null}
                     </Animated.View>
                     {this.props.isPasswordForget ?
                         <Button onPress={this.forgotPassword} title={"Forgot your password?"}/> : null}
-                    <ButtonGalio onPress={this.loginButtonOnPress} style={Styles.buttonSingIn}>
-                        <Text style={Styles.currentButtonText} color={"05634b"}>Login</Text>
-                    </ButtonGalio>
-                    <ButtonGalio onPress={this.singUpButtonOnPress} style={Styles.buttonSingUp}>
-                        <Text style={Styles.buttonText}>Sing up</Text>
-                    </ButtonGalio>
+                    <Animated.View>
+                        {this.props.isSingUpButtonPressed ?
+                            <View>
+                                <ButtonGalio onPress={this.singUpButtonOnPress} style={Styles.activeButton}>
+                                    <Text style={Styles.activeButtonText} color={"05634b"}>Sign up</Text>
+                                </ButtonGalio>
+                                <ButtonGalio onPress={this.loginButtonOnPress} style={Styles.inactiveButton}>
+                                    <Text style={Styles.inactiveButtonText}>Login</Text>
+                                </ButtonGalio>
+                            </View> :
+                            <View>
+                                <ButtonGalio onPress={this.loginButtonOnPress} style={Styles.activeButton}>
+                                    <Text style={Styles.activeButtonText} color={"05634b"}>Login</Text>
+                                </ButtonGalio>
+                                <ButtonGalio onPress={this.singUpButtonOnPress} style={Styles.inactiveButton}>
+                                    <Text style={Styles.inactiveButtonText}>Sign up</Text>
+                                </ButtonGalio>
+                            </View>}
+                    </Animated.View>
                     <Hr text={"  or  "} width={300} lineColor={"white"} textStyles={Styles.textStylesHr}
                         hrStyles={Styles.lineStyle}/>
                     <View style={Styles.logos}>
@@ -213,10 +240,10 @@ class Login extends Component {
                         <TouchableOpacity onPress={this.googleOnPress}>
                             <Image style={Styles.socialNetworkLogo} source={googleLogo}/>
                         </TouchableOpacity>
-
                     </View>
+
                 </Animated.View>
-            </View>);
+            );
     };
 };
 
