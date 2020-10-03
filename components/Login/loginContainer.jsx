@@ -3,7 +3,8 @@ import {
     updateLoginUserActionCreator,
     updatePasswordUserActionCreator,
     loginButtonActionCreator,
-    singUpButtonActionCreator, updateRepeatPasswordUserActionCreator
+    singUpButtonActionCreator,
+    updateRepeatPasswordUserActionCreator
 } from "../../Redux/loginReducer";
 import Login from "./Login";
 import {connect} from "react-redux";
